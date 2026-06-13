@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Carbon Twin AI - Meet the future version of yourself through your environmental choices." />
+  <title>Carbon Twin AI</title>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="dark" data-page="landing">
+
+  <!-- ===================== NOTIFICATION ===================== -->
+  <div id="notification" class="notification" role="alert" aria-live="polite"></div>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="#" class="logo" onclick="showPage('landing')" aria-label="Carbon Twin AI Home">
+        <span class="logo-icon" aria-hidden="true">🌿</span>
+        <span class="logo-text">Carbon<span class="logo-accent">Twin</span> AI</span>
+      </a>
+
+      <nav class="main-nav" role="navigation" aria-label="Main navigation">
+        <button class="nav-btn" onclick="showPage('landing')" data-page-target="landing" aria-label="Landing page">Home</button>
+        <button class="nav-btn" onclick="showPage('dashboard')" data-page-target="dashboard" aria-label="Dashboard">Dashboard</button>
+        <button class="nav-btn" onclick="showPage('logger')" data-page-target="logger" aria-label="Log activities">Log Activity</button>
+        <button class="nav-btn" onclick="showPage('twin')" data-page-target="twin" aria-label="Carbon Twin visualization">My Twin</button>
+        <button class="nav-btn" onclick="showPage('simulator')" data-page-target="simulator" aria-label="What-If Simulator">Simulator</button>
+        <button class="nav-btn" onclick="showPage('quests')" data-page-target="quests" aria-label="Carbon Quests">Quests</button>
+        <button class="nav-btn" onclick="showPage('stats')" data-page-target="stats" aria-label="Statistics">Stats</button>
+        <button class="nav-btn" onclick="showPage('settings')" data-page-target="settings" aria-label="Settings">Settings</button>
+      </nav>
+
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle dark/light mode" title="Toggle theme">
+          <span class="theme-icon">🌙</span>
+        </button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle mobile menu" aria-expanded="false" onclick="toggleMobileMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation" aria-hidden="true">
+      <button class="nav-btn" onclick="showPage('landing'); closeMobileMenu()">Home</button>
+      <button class="nav-btn" onclick="showPage('dashboard'); closeMobileMenu()">Dashboard</button>
+      <button class="nav-btn" onclick="showPage('logger'); closeMobileMenu()">Log Activity</button>
+      <button class="nav-btn" onclick="showPage('twin'); closeMobileMenu()">My Twin</button>
+      <button class="nav-btn" onclick="showPage('simulator'); closeMobileMenu()">Simulator</button>
+      <button class="nav-btn" onclick="showPage('quests'); closeMobileMenu()">Quests</button>
+      <button class="nav-btn" onclick="showPage('stats'); closeMobileMenu()">Stats</button>
+      <button class="nav-btn" onclick="showPage('settings'); closeMobileMenu()">Settings</button>
+    </div>
+  </header>
+
+  <!-- ===================== LANDING PAGE ===================== -->
+  <main id="page-landing" class="page active" role="main">
+
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="hero-bg-orbs" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge" aria-label="Featured app">🏆 Hackathon Featured App</div>
+        <h1 id="heroTitle" class="hero-title">
+          Meet the <em>future version</em><br/>of yourself
+        </h1>
+        <p class="hero-subtitle">
+          Carbon Twin AI transforms your daily choices into a living digital twin — showing you exactly what your environmental future looks like, one habit at a time.
+        </p>
+        <div class="hero-cta-group">
+          <button class="btn btn-primary btn-lg" onclick="showPage('logger')" aria-label="Start tracking your carbon footprint">
+            Start Tracking Free
+            <span aria-hidden="true">→</span>
+          </button>
+          <button class="btn btn-ghost btn-lg" onclick="showPage('twin')" aria-label="See Carbon Twin demo">
+            See My Twin
+          </button>
+        </div>
+        <div class="hero-stats" aria-label="App statistics">
+          <div class="hero-stat">
+            <span class="stat-num" data-count="2847">0</span>
+            <span class="stat-label">Tons CO₂ saved</span>
+          </div>
+          <div class="hero-stat-divider" aria-hidden="true"></div>
+          <div class="hero-stat">
+            <span class="stat-num" data-count="94">0</span>
+            <span class="stat-label">Average eco score</span>
+          </div>
+          <div class="hero-stat-divider" aria-hidden="true"></div>
+          <div class="hero-stat">
+            <span class="stat-num" data-count="1200">0</span>
+            <span class="stat-label">Quests completed</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="twin-preview">
+          <div class="twin-scene">
+            <div class="twin-sky"></div>
+            <div class="twin-trees">
+              <span class="tree t1">🌳</span>
+              <span class="tree t2">🌲</span>
+              <span class="tree t3">🌳</span>
+              <span class="tree t4">🌿</span>
+            </div>
+            <div class="twin-avatar-wrap">
+              <div class="twin-avatar">🧑‍🌾</div>
+              <div class="twin-aura"></div>
+            </div>
+          </div>
+          <div class="twin-label">Your Green Twin</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote ticker -->
+    <div class="quote-ticker" aria-live="polite" aria-label="Environmental quote">
+      <div class="quote-inner" id="quoteTicker">
+        "The Earth does not belong to us, we belong to the Earth." — Chief Seattle
+      </div>
+    </div>
+
+    <!-- Features -->
+    <section class="features-section" aria-labelledby="featuresTitle">
+      <div class="section-eyebrow">What makes us different</div>
+      <h2 id="featuresTitle" class="section-title">Built for behavior change,<br/>not just measurement</h2>
+
+      <div class="features-grid">
+        <article class="feature-card glass" tabindex="0">
+          <div class="feature-icon" aria-hidden="true">🤖</div>
+          <h3>AI Carbon Diary</h3>
+          <p>Log travel, food, electricity and shopping in plain language. Our AI extracts and calculates your emissions automatically.</p>
+        </article>
+        <article class="feature-card glass" tabindex="0">
+          <div class="feature-icon" aria-hidden="true">🧬</div>
+          <h3>Living Twin Avatar</h3>
+          <p>Your Carbon Twin evolves daily. Green habits bring clear skies and lush forests. Pollution habits bring smog and waste.</p>
+        </article>
+        <article class="feature-card glass" tabindex="0">
+          <div class="feature-icon" aria-hidden="true">🔮</div>
+          <h3>Future Impact Simulator</h3>
+          <p>Test "what-if" scenarios instantly. See yearly savings from switching transport, diet, or energy habits.</p>
+        </article>
+        <article class="feature-card glass" tabindex="0">
+          <div class="feature-icon" aria-hidden="true">⚡</div>
+          <h3>Carbon Quests</h3>
+          <p>Personalized daily eco-missions tailored to your actual habits — not generic tips. Earn badges as you progress.</p>
+        </article>
+        <article class="feature-card glass" tabindex="0">
+          <div class="feature-icon" aria-hidden="true">📊</div>
+          <h3>Smart Analytics</h3>
+          <p>Beautiful charts showing your daily, weekly, and monthly trends. Spot patterns and celebrate improvements.</p>
+        </article>
+        <article class="feature-card glass" tabindex="0">
+          <div class="feature-icon" aria-hidden="true">🏘️</div>
+          <h3>Community Impact</h3>
+          <p>See how your choices stack up locally. Anonymous neighborhood rankings create collective momentum for change.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="benefits-section" aria-labelledby="benefitsTitle">
+      <div class="benefits-inner">
+        <div class="benefits-text">
+          <div class="section-eyebrow">Why it works</div>
+          <h2 id="benefitsTitle" class="section-title">Carbon data that actually moves people</h2>
+          <ul class="benefits-list" role="list">
+            <li>
+              <span class="benefit-icon" aria-hidden="true">✓</span>
+              <div>
+                <strong>Emotional storytelling</strong>
+                <p>Instead of "12 kg CO₂", we show you what that means for your twin's world.</p>
+              </div>
+            </li>
+            <li>
+              <span class="benefit-icon" aria-hidden="true">✓</span>
+              <div>
+                <strong>Zero backend needed</strong>
+                <p>All data stays on your device. Private by design, no account required.</p>
+              </div>
+            </li>
+            <li>
+              <span class="benefit-icon" aria-hidden="true">✓</span>
+              <div>
+                <strong>Gamified progress</strong>
+                <p>Streaks, badges, and quests keep you coming back beyond day one.</p>
+              </div>
+            </li>
+            <li>
+              <span class="benefit-icon" aria-hidden="true">✓</span>
+              <div>
+                <strong>Personalized, not generic</strong>
+                <p>Suggestions are based on your actual logged habits, not one-size-fits-all tips.</p>
+              </div>
+            </li>
+          </ul>
+          <button class="btn btn-primary" onclick="showPage('dashboard')" aria-label="Open dashboard">Open My Dashboard →</button>
+        </div>
+        <div class="benefits-visual" aria-hidden="true">
+          <div class="eco-score-preview glass">
+            <div class="eco-score-ring">
+              <svg viewBox="0 0 120 120" class="ring-svg">
+                <circle cx="60" cy="60" r="50" class="ring-bg"/>
+                <circle cx="60" cy="60" r="50" class="ring-fill" id="heroRingFill"/>
+              </svg>
+              <div class="ring-label">
+                <span class="ring-num">78</span>
+                <span class="ring-text">Eco Score</span>
+              </div>
+            </div>
+            <div class="score-legend">
+              <div class="legend-item"><span class="dot dot-green"></span>Transport</div>
+              <div class="legend-item"><span class="dot dot-blue"></span>Energy</div>
+              <div class="legend-item"><span class="dot dot-amber"></span>Food</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner" aria-labelledby="ctaTitle">
+      <div class="cta-content">
+        <h2 id="ctaTitle">Your twin is waiting to be shaped.</h2>
+        <p>Every choice you make today writes the story of your environmental future.</p>
+        <button class="btn btn-primary btn-lg" onclick="showPage('logger')" aria-label="Begin logging activities">
+          Begin Your Journey
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== DASHBOARD PAGE ===================== -->
+  <main id="page-dashboard" class="page" role="main" aria-label="Dashboard">
+    <div class="page-header">
+      <div>
+        <h1>Dashboard</h1>
+        <p class="page-subtitle" id="dashWelcome">Welcome back! Here's your carbon overview.</p>
+      </div>
+      <div class="streak-badge" aria-label="Current streak">
+        <span aria-hidden="true">🔥</span>
+        <span id="streakCount">0</span>
+        <span>day streak</span>
+      </div>
+    </div>
+
+    <!-- Summary cards -->
+    <div class="cards-grid" role="list" aria-label="Carbon footprint summary">
+      <article class="stat-card glass" role="listitem" tabindex="0">
+        <div class="stat-card-icon" aria-hidden="true">📅</div>
+        <div class="stat-card-label">Today's Emissions</div>
+        <div class="stat-card-value" id="todayEmissions">0.0</div>
+        <div class="stat-card-unit">kg CO₂</div>
+        <div class="stat-card-trend" id="todayTrend">No data yet</div>
+      </article>
+      <article class="stat-card glass" role="listitem" tabindex="0">
+        <div class="stat-card-icon" aria-hidden="true">📆</div>
+        <div class="stat-card-label">This Week</div>
+        <div class="stat-card-value" id="weekEmissions">0.0</div>
+        <div class="stat-card-unit">kg CO₂</div>
+        <div class="stat-card-trend" id="weekTrend">Log activities to start</div>
+      </article>
+      <article class="stat-card glass" role="listitem" tabindex="0">
+        <div class="stat-card-icon" aria-hidden="true">🗓️</div>
+        <div class="stat-card-label">This Month</div>
+        <div class="stat-card-value" id="monthEmissions">0.0</div>
+        <div class="stat-card-unit">kg CO₂</div>
+        <div class="stat-card-trend" id="monthTrend">—</div>
+      </article>
+      <article class="stat-card glass eco-score-card" role="listitem" tabindex="0">
+        <div class="stat-card-icon" aria-hidden="true">🌱</div>
+        <div class="stat-card-label">Eco Score</div>
+        <div class="stat-card-value" id="ecoScore">—</div>
+        <div class="stat-card-unit">out of 100</div>
+        <div class="stat-card-trend" id="ecoLevel">Start logging to get your score</div>
+      </article>
+    </div>
+
+    <!-- Progress + suggestions -->
+    <div class="dash-grid">
+      <!-- Eco progress -->
+      <section class="glass-card" aria-labelledby="progressTitle">
+        <h2 id="progressTitle" class="card-title">Weekly Progress</h2>
+        <div class="progress-bars" id="progressBars" aria-label="Weekly emission progress bars">
+          <p class="empty-state">Log activities to see your weekly breakdown.</p>
+        </div>
+      </section>
+
+      <!-- AI Suggestions -->
+      <section class="glass-card" aria-labelledby="suggestionsTitle">
+        <h2 id="suggestionsTitle" class="card-title">🤖 AI Insights</h2>
+        <div id="aiInsightsWrap">
+          <ul class="suggestions-list" id="suggestionsList" aria-label="AI-generated eco suggestions" role="list">
+            <li class="suggestion-item">Log some activities and AI will generate personalised insights!</li>
+          </ul>
+          <button class="btn btn-ghost btn-sm ai-refresh-btn" id="aiRefreshBtn" onclick="refreshAiInsights()" style="margin-top:0.75rem;display:none" aria-label="Refresh AI insights">
+            ✨ Refresh AI Insights
+          </button>
+          <div id="aiLoadingState" class="ai-loading" style="display:none" aria-live="polite">
+            <div class="ai-spinner"></div>
+            <span>Generating personalised insights…</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Badges -->
+    <section class="glass-card badges-section" aria-labelledby="badgesTitle">
+      <h2 id="badgesTitle" class="card-title">🏆 Your Achievements</h2>
+      <div class="badges-grid" id="badgesGrid" role="list" aria-label="Achievement badges">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- Quote -->
+    <div class="daily-quote glass" aria-live="polite">
+      <span class="quote-mark" aria-hidden="true">"</span>
+      <p id="dashQuote">The greatest threat to our planet is the belief that someone else will save it.</p>
+      <cite>— Robert Swan</cite>
+    </div>
+  </main>
+
+  <!-- ===================== LOGGER PAGE ===================== -->
+  <main id="page-logger" class="page" role="main" aria-label="Daily Activity Logger">
+    <div class="page-header">
+      <div>
+        <h1>Log Today's Activity</h1>
+        <p class="page-subtitle">Track your habits to power your Carbon Twin.</p>
+      </div>
+    </div>
+
+    <div class="logger-grid">
+      <div class="logger-form-wrap">
+        <div class="glass-card logger-form">
+
+          <!-- Transportation -->
+          <fieldset class="form-group">
+            <legend class="form-legend">
+              <span aria-hidden="true">🚗</span> Transportation
+            </legend>
+            <div class="radio-grid" role="group" aria-label="Select transport type">
+              <label class="radio-card" tabindex="0">
+                <input type="radio" name="transport" value="car" aria-label="Car" />
+                <span class="radio-icon" aria-hidden="true">🚗</span>
+                <span>Car</span>
+              </label>
+              <label class="radio-card" tabindex="0">
+                <input type="radio" name="transport" value="bike" aria-label="Motorbike" />
+                <span class="radio-icon" aria-hidden="true">🏍️</span>
+                <span>Bike</span>
+              </label>
+              <label class="radio-card" tabindex="0">
+                <input type="radio" name="transport" value="bicycle" aria-label="Bicycle" />
+                <span class="radio-icon" aria-hidden="true">🚲</span>
+                <span>Bicycle</span>
+              </label>
+              <label class="radio-card" tabindex="0">
+                <input type="radio" name="transport" value="bus" aria-label="Bus" />
+                <span class="radio-icon" aria-hidden="true">🚌</span>
+                <span>Bus</span>
+              </label>
+              <label class="radio-card" tabindex="0">
+                <input type="radio" name="transport" value="train" aria-label="Train" />
+                <span class="radio-icon" aria-hidden="true">🚆</span>
+                <span>Train</span>
+              </label>
+              <label class="radio-card" tabindex="0">
+                <input type="radio" name="transport" value="walk" aria-label="Walking" />
+                <span class="radio-icon" aria-hidden="true">🚶</span>
+                <span>Walk</span>
+              </label>
+            </div>
+            <div class="form-field">
+              <label for="transportKm" class="form-label">Distance (km)</label>
+              <input type="number" id="transportKm" class="form-input" min="0" max="1000" value="10" aria-label="Distance in kilometers" />
+            </div>
+          </fieldset>
+
+          <!-- Food -->
+          <fieldset class="form-group">
+            <legend class="form-legend">
+              <span aria-hidden="true">🍽️</span> Food Choices
+            </legend>
+            <div class="radio-grid radio-grid--2" role="group" aria-label="Select food type">
+              <label class="radio-card" tabindex="0">
+                <input type="radio" name="food" value="vegan" aria-label="Vegan diet" />
+                <span class="radio-icon" aria-hidden="true">🥗</span>
+                <span>Vegan</span>
+              </label>
+              <label class="radio-card" tabindex="0">
+                <input type="radio" name="food" value="vegetarian" aria-label="Vegetarian diet" />
+                <span class="radio-icon" aria-hidden="true">🥦</span>
+                <span>Vegetarian</span>
+              </label>
+              <label class="radio-card" tabindex="0">
+                <input type="radio" name="food" value="mixed" aria-label="Mixed diet" />
+                <span class="radio-icon" aria-hidden="true">🍱</span>
+                <span>Mixed</span>
+              </label>
+              <label class="radio-card" tabindex="0">
+                <input type="radio" name="food" value="meat-heavy" aria-label="Meat-heavy diet" />
+                <span class="radio-icon" aria-hidden="true">🥩</span>
+                <span>Meat-Heavy</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Energy -->
+          <fieldset class="form-group">
+            <legend class="form-legend">
+              <span aria-hidden="true">⚡</span> Energy Usage
+            </legend>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="electricityHours" class="form-label">Electricity (hours)</label>
+                <input type="number" id="electricityHours" class="form-input" min="0" max="24" value="8" aria-label="Electricity usage in hours" />
+              </div>
+              <div class="form-field">
+                <label for="acHours" class="form-label">AC / Heating (hours)</label>
+                <input type="number" id="acHours" class="form-input" min="0" max="24" value="2" aria-label="Air conditioning hours" />
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Shopping -->
+          <fieldset class="form-group">
+            <legend class="form-legend">
+              <span aria-hidden="true">🛍️</span> Shopping
+            </legend>
+            <div class="radio-grid radio-grid--3" role="group" aria-label="Select shopping amount">
+              <label class="radio-card" tabindex="0">
+                <input type="radio" name="shopping" value="none" aria-label="No shopping" />
+                <span class="radio-icon" aria-hidden="true">🚫</span>
+                <span>None</span>
+              </label>
+              <label class="radio-card" tabindex="0">
+                <input type="radio" name="shopping" value="light" aria-label="Light shopping" />
+                <span class="radio-icon" aria-hidden="true">🛒</span>
+                <span>Light</span>
+              </label>
+              <label class="radio-card" tabindex="0">
+                <input type="radio" name="shopping" value="heavy" aria-label="Heavy shopping" />
+                <span class="radio-icon" aria-hidden="true">🏪</span>
+                <span>Heavy</span>
+              </label>
+            </div>
+          </fieldset>
+
+          <button class="btn btn-primary btn-full" onclick="logActivity()" aria-label="Save today's activity log">
+            Save Today's Log 🌱
+          </button>
+        </div>
+      </div>
+
+      <!-- Preview panel -->
+      <aside class="logger-preview" aria-label="Live emission preview">
+        <div class="glass-card preview-card">
+          <h2 class="card-title">Live Preview</h2>
+          <div class="preview-emission">
+            <div class="emission-big" id="previewEmission">0.0</div>
+            <div class="emission-unit">kg CO₂ estimated today</div>
+          </div>
+          <div class="preview-breakdown" id="previewBreakdown">
+            <div class="breakdown-row">
+              <span>🚗 Transport</span><span id="pb-transport">0.0 kg</span>
+            </div>
+            <div class="breakdown-row">
+              <span>🍽️ Food</span><span id="pb-food">0.0 kg</span>
+            </div>
+            <div class="breakdown-row">
+              <span>⚡ Energy</span><span id="pb-energy">0.0 kg</span>
+            </div>
+            <div class="breakdown-row">
+              <span>🛍️ Shopping</span><span id="pb-shopping">0.0 kg</span>
+            </div>
+          </div>
+          <div class="preview-level" id="previewLevel">
+            <span class="level-dot"></span>
+            <span id="levelText">Enter your activities</span>
+          </div>
+        </div>
+
+        <div class="glass-card history-card">
+          <h2 class="card-title">Recent Logs</h2>
+          <div class="log-history" id="logHistory" aria-label="Recent activity logs" role="list">
+            <p class="empty-state">No logs yet.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ===================== CARBON TWIN PAGE ===================== -->
+  <main id="page-twin" class="page" role="main" aria-label="Carbon Twin Visualization">
+    <div class="page-header">
+      <div>
+        <h1>Your Carbon Twin</h1>
+        <p class="page-subtitle">A living reflection of your environmental choices.</p>
+      </div>
+      <div class="streak-badge" aria-label="Green streak">
+        <span aria-hidden="true">🔥</span>
+        <span id="twinStreakCount">0</span>
+        <span>day green streak</span>
+      </div>
+    </div>
+
+    <!-- Animated Twin Scene -->
+    <section class="twin-scene-section glass-card" aria-label="Carbon Twin animated environment">
+      <!-- State selector tabs -->
+      <div class="twin-state-tabs" role="tablist" aria-label="Twin state preview">
+        <button class="twin-tab active" data-state="green" onclick="previewTwinState('green')" role="tab" aria-selected="true">🌳 Green</button>
+        <button class="twin-tab" data-state="neutral" onclick="previewTwinState('neutral')" role="tab" aria-selected="false">🌤️ Neutral</button>
+        <button class="twin-tab" data-state="polluted" onclick="previewTwinState('polluted')" role="tab" aria-selected="false">🌫️ Polluted</button>
+      </div>
+
+      <!-- SVG Scene Canvas -->
+      <div class="twin-svg-wrap" id="twinSvgWrap" aria-live="polite">
+        <svg id="twinSceneSvg" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" aria-label="Carbon Twin scene">
+          <!-- Sky gradient layer -->
+          <defs>
+            <linearGradient id="skyGradGreen" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0ea5e9"/>
+              <stop offset="60%" stop-color="#38bdf8"/>
+              <stop offset="100%" stop-color="#7dd3fc"/>
+            </linearGradient>
+            <linearGradient id="skyGradNeutral" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#475569"/>
+              <stop offset="60%" stop-color="#64748b"/>
+              <stop offset="100%" stop-color="#94a3b8"/>
+            </linearGradient>
+            <linearGradient id="skyGradPolluted" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1c1009"/>
+              <stop offset="60%" stop-color="#3d2006"/>
+              <stop offset="100%" stop-color="#57330f"/>
+            </linearGradient>
+            <linearGradient id="groundGreen" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#166534"/>
+              <stop offset="100%" stop-color="#14532d"/>
+            </linearGradient>
+            <linearGradient id="groundNeutral" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#78716c"/>
+              <stop offset="100%" stop-color="#57534e"/>
+            </linearGradient>
+            <linearGradient id="groundPolluted" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#292524"/>
+              <stop offset="100%" stop-color="#1c1917"/>
+            </linearGradient>
+            <filter id="smokeBlur">
+              <feGaussianBlur stdDeviation="6"/>
+            </filter>
+            <filter id="glowFilter">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Sky background -->
+          <rect id="skyRect" x="0" y="0" width="800" height="280" fill="url(#skyGradGreen)"/>
+
+          <!-- Sun / Moon -->
+          <g id="sunMoon">
+            <circle id="sunCircle" cx="650" cy="70" r="38" fill="#fde68a" opacity="0.95" filter="url(#glowFilter)"/>
+            <circle cx="650" cy="70" r="55" fill="#fde68a" opacity="0.12"/>
+          </g>
+
+          <!-- Clouds -->
+          <g id="clouds" class="svg-clouds">
+            <g id="cloud1" transform="translate(80,55)">
+              <ellipse cx="0" cy="0" rx="50" ry="22" fill="white" opacity="0.9"/>
+              <ellipse cx="35" cy="-10" rx="32" ry="18" fill="white" opacity="0.85"/>
+              <ellipse cx="-28" cy="-8" rx="28" ry="15" fill="white" opacity="0.8"/>
+            </g>
+            <g id="cloud2" transform="translate(400,40)">
+              <ellipse cx="0" cy="0" rx="45" ry="20" fill="white" opacity="0.85"/>
+              <ellipse cx="32" cy="-9" rx="28" ry="16" fill="white" opacity="0.8"/>
+            </g>
+          </g>
+
+          <!-- Smoke plumes (polluted) -->
+          <g id="smokePlumes" opacity="0">
+            <ellipse cx="200" cy="220" rx="22" ry="40" fill="#555" opacity="0.5" filter="url(#smokeBlur)"/>
+            <ellipse cx="200" cy="160" rx="30" ry="50" fill="#666" opacity="0.45" filter="url(#smokeBlur)"/>
+            <ellipse cx="200" cy="100" rx="40" ry="60" fill="#777" opacity="0.35" filter="url(#smokeBlur)"/>
+            <ellipse cx="590" cy="210" rx="18" ry="35" fill="#555" opacity="0.5" filter="url(#smokeBlur)"/>
+            <ellipse cx="590" cy="155" rx="26" ry="44" fill="#666" opacity="0.4" filter="url(#smokeBlur)"/>
+            <!-- Factory -->
+            <rect x="170" y="220" width="60" height="60" rx="3" fill="#374151"/>
+            <rect x="185" y="200" width="14" height="30" rx="2" fill="#4b5563"/>
+            <rect x="207" y="195" width="14" height="35" rx="2" fill="#4b5563"/>
+            <rect x="560" y="230" width="50" height="50" rx="3" fill="#374151"/>
+            <rect x="573" y="212" width="12" height="28" rx="2" fill="#4b5563"/>
+          </g>
+
+          <!-- Mountains -->
+          <g id="mountains">
+            <polygon points="0,280 130,160 260,280" fill="#1a4731" opacity="0.8" id="mtn1"/>
+            <polygon points="100,280 240,140 380,280" fill="#166534" opacity="0.9" id="mtn2"/>
+            <polygon points="440,280 580,130 720,280" fill="#1a4731" opacity="0.8" id="mtn3"/>
+            <polygon points="600,280 740,150 880,280" fill="#166534" opacity="0.85" id="mtn4"/>
+          </g>
+
+          <!-- Ground -->
+          <rect id="groundRect" x="0" y="280" width="800" height="120" fill="url(#groundGreen)"/>
+
+          <!-- Trees layer -->
+          <g id="treeLayer">
+            <!-- Green trees (5 healthy) -->
+            <g id="treesGreen">
+              <!-- Tree 1 -->
+              <rect x="88" y="235" width="10" height="50" fill="#92400e"/>
+              <ellipse cx="93" cy="215" rx="30" ry="35" fill="#16a34a"/>
+              <ellipse cx="93" cy="205" rx="22" ry="25" fill="#22c55e"/>
+              <!-- Tree 2 -->
+              <rect x="178" y="245" width="10" height="40" fill="#92400e"/>
+              <ellipse cx="183" cy="225" rx="26" ry="30" fill="#15803d"/>
+              <ellipse cx="183" cy="215" rx="18" ry="22" fill="#4ade80"/>
+              <!-- Tree 3 -->
+              <rect x="558" y="235" width="10" height="50" fill="#92400e"/>
+              <ellipse cx="563" cy="210" rx="32" ry="38" fill="#16a34a"/>
+              <ellipse cx="563" cy="198" rx="22" ry="26" fill="#22c55e"/>
+              <!-- Tree 4 -->
+              <rect x="648" y="240" width="10" height="45" fill="#92400e"/>
+              <ellipse cx="653" cy="218" rx="28" ry="32" fill="#15803d"/>
+              <ellipse cx="653" cy="207" rx="20" ry="24" fill="#4ade80"/>
+              <!-- Tree 5 (pine) -->
+              <rect x="718" y="240" width="8" height="45" fill="#92400e"/>
+              <polygon points="722,175 698,248 746,248" fill="#166534"/>
+              <polygon points="722,195 702,255 742,255" fill="#15803d"/>
+            </g>
+
+            <!-- Neutral trees (2 average) -->
+            <g id="treesNeutral" opacity="0">
+              <rect x="130" y="248" width="9" height="38" fill="#78716c"/>
+              <ellipse cx="135" cy="230" rx="24" ry="27" fill="#4d7c0f"/>
+              <ellipse cx="135" cy="222" rx="17" ry="20" fill="#65a30d"/>
+              <rect x="628" y="245" width="9" height="40" fill="#78716c"/>
+              <ellipse cx="633" cy="225" rx="26" ry="30" fill="#4d7c0f"/>
+              <ellipse cx="633" cy="215" rx="18" ry="22" fill="#65a30d"/>
+            </g>
+
+            <!-- Dead tree (polluted) -->
+            <g id="treesDead" opacity="0">
+              <rect x="370" y="220" width="12" height="65" fill="#44403c"/>
+              <line x1="382" y1="248" x2="415" y2="228" stroke="#57534e" stroke-width="5"/>
+              <line x1="382" y1="242" x2="350" y2="222" stroke="#57534e" stroke-width="5"/>
+              <line x1="376" y1="255" x2="404" y2="242" stroke="#57534e" stroke-width="4"/>
+              <line x1="376" y1="252" x2="352" y2="238" stroke="#57534e" stroke-width="4"/>
+              <line x1="376" y1="262" x2="395" y2="260" stroke="#57534e" stroke-width="3"/>
+            </g>
+          </g>
+
+          <!-- Flowers / birds -->
+          <g id="greenExtras">
+            <text x="135" y="290" font-size="18" opacity="0.9">🌸</text>
+            <text x="300" y="288" font-size="16" opacity="0.85">🌼</text>
+            <text x="490" y="291" font-size="18" opacity="0.9">🌸</text>
+            <!-- Birds -->
+            <g id="birds" class="svg-birds">
+              <path d="M320,85 Q330,78 340,85" stroke="white" stroke-width="2.5" fill="none"/>
+              <path d="M350,70 Q360,63 370,70" stroke="white" stroke-width="2.5" fill="none"/>
+              <path d="M280,100 Q290,93 300,100" stroke="white" stroke-width="2" fill="none"/>
+            </g>
+          </g>
+
+          <!-- Neutral extras -->
+          <g id="neutralExtras" opacity="0">
+            <text x="300" y="290" font-size="16" opacity="0.6">🌿</text>
+            <text x="480" y="292" font-size="14" opacity="0.5">🍂</text>
+          </g>
+
+          <!-- Polluted extras -->
+          <g id="pollutedExtras" opacity="0">
+            <text x="90" y="292" font-size="18" opacity="0.7">🗑️</text>
+            <text x="480" y="292" font-size="16" opacity="0.6">☠️</text>
+            <text x="680" y="290" font-size="16" opacity="0.7">🗑️</text>
+          </g>
+
+          <!-- Avatar -->
+          <text id="twinAvatarSvg" x="395" y="300" font-size="58" text-anchor="middle" class="svg-avatar">🧑‍🌾</text>
+
+          <!-- Aura glow around avatar -->
+          <circle id="avatarAura" cx="400" cy="282" r="42" fill="none" stroke="#22c55e" stroke-width="3" opacity="0.6"/>
+
+          <!-- Eco score label overlay -->
+          <rect x="310" y="318" width="180" height="42" rx="10" fill="rgba(0,0,0,0.55)"/>
+          <text id="twinScoreLabel" x="400" y="337" text-anchor="middle" fill="#22c55e" font-size="13" font-family="Space Grotesk, sans-serif" font-weight="600">Eco Score</text>
+          <text id="twinScoreNum" x="400" y="354" text-anchor="middle" fill="white" font-size="15" font-family="Space Grotesk, sans-serif" font-weight="700">— / 100</text>
+        </svg>
+      </div>
+
+      <!-- Twin score bar -->
+      <div class="twin-score-bar" aria-label="Environmental score bar">
+        <span class="tsb-label tsb-bad" aria-hidden="true">🌫️ Polluted</span>
+        <div class="tsb-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" aria-label="Eco score progress">
+          <div class="tsb-fill" id="tsbFill" style="width:50%"></div>
+        </div>
+        <span class="tsb-label tsb-good" aria-hidden="true">🌿 Clean</span>
+      </div>
+    </section>
+
+    <div class="twin-page-grid twin-page-grid--lower">
+      <!-- Twin info -->
+      <aside class="twin-info-panel" aria-label="Twin information and advice">
+        <div class="glass-card">
+          <h2 class="card-title">Twin Status</h2>
+          <div class="twin-status-grid">
+            <div class="ts-item">
+              <div class="ts-icon" aria-hidden="true">🌡️</div>
+              <div class="ts-label">Eco Score</div>
+              <div class="ts-val" id="twinEcoScore">—</div>
+            </div>
+            <div class="ts-item">
+              <div class="ts-icon" aria-hidden="true">💨</div>
+              <div class="ts-label">Emission Level</div>
+              <div class="ts-val" id="twinEmissionLevel">—</div>
+            </div>
+            <div class="ts-item">
+              <div class="ts-icon" aria-hidden="true">🌳</div>
+              <div class="ts-label">Trees Equivalent</div>
+              <div class="ts-val" id="twinTrees">—</div>
+            </div>
+            <div class="ts-item">
+              <div class="ts-icon" aria-hidden="true">📅</div>
+              <div class="ts-label">Days Tracked</div>
+              <div class="ts-val" id="twinDays">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <h2 class="card-title">📢 Twin Says</h2>
+          <div class="twin-says" id="twinSays" aria-live="polite">
+            <p class="twin-message">Log your first activity to hear from your twin!</p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- 2035 Future Prediction - side by side -->
+      <section class="future-cards-section" aria-labelledby="futureTitle">
+        <h2 id="futureTitle" class="card-title" style="margin-bottom:1rem;">🌍 Your 2035 Future</h2>
+        <div class="future-dual-cards" id="futureDualCards">
+          <!-- Future A: Sustainable -->
+          <div class="future-card future-card--green glass-card">
+            <div class="future-card-header">
+              <span class="future-card-icon">🌱</span>
+              <div>
+                <div class="future-card-title">Sustainable Path</div>
+                <div class="future-card-score" id="futureGreenScore">Eco Score: <strong>92</strong></div>
+              </div>
+            </div>
+            <ul class="future-card-list" id="futureGreenList">
+              <li class="future-item good">✔ Cleaner air &amp; skies</li>
+              <li class="future-item good">✔ More greenery &amp; biodiversity</li>
+              <li class="future-item good">✔ Lower annual emissions</li>
+              <li class="future-item good">✔ Better community impact</li>
+            </ul>
+            <div class="future-card-bar">
+              <div class="future-bar-fill future-bar-fill--green" id="futureGreenBar" style="width:92%"></div>
+            </div>
+          </div>
+
+          <!-- Future B: High Emissions -->
+          <div class="future-card future-card--red glass-card">
+            <div class="future-card-header">
+              <span class="future-card-icon">🌫️</span>
+              <div>
+                <div class="future-card-title">High Emissions Path</div>
+                <div class="future-card-score" id="futureRedScore">Eco Score: <strong>38</strong></div>
+              </div>
+            </div>
+            <ul class="future-card-list" id="futureRedList">
+              <li class="future-item bad">✖ Increased pollution</li>
+              <li class="future-item bad">✖ Higher energy waste</li>
+              <li class="future-item bad">✖ Reduced green spaces</li>
+              <li class="future-item bad">✖ Larger carbon footprint</li>
+            </ul>
+            <div class="future-card-bar future-card-bar--red">
+              <div class="future-bar-fill future-bar-fill--red" id="futureRedBar" style="width:38%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="future-prediction" id="futurePrediction" style="margin-top:1rem">
+          <p>Start logging activities to personalise your 2035 prediction.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ===================== SIMULATOR PAGE ===================== -->
+  <main id="page-simulator" class="page" role="main" aria-label="What-If Simulator">
+    <div class="page-header">
+      <div>
+        <h1>What-If Simulator</h1>
+        <p class="page-subtitle">Test habit changes and see your projected yearly savings.</p>
+      </div>
+    </div>
+
+    <div class="sim-grid">
+      <div class="sim-scenarios">
+        <div class="glass-card">
+          <h2 class="card-title">Adjust Your Habits</h2>
+
+          <div class="sim-control">
+            <label class="sim-label" for="simTransport">
+              <span aria-hidden="true">🚗</span> Transport mode
+            </label>
+            <select id="simTransport" class="form-select" aria-label="Select transport mode for simulation">
+              <option value="car">Car (keep current)</option>
+              <option value="bike">Motorbike</option>
+              <option value="bus">Bus</option>
+              <option value="train">Train</option>
+              <option value="bicycle" selected>Bicycle</option>
+              <option value="walk">Walk</option>
+            </select>
+          </div>
+
+          <div class="sim-control">
+            <label class="sim-label" for="simDays">
+              <span aria-hidden="true">📅</span> Days per week using above transport
+            </label>
+            <div class="range-wrap">
+              <input type="range" id="simDays" class="form-range" min="1" max="7" value="3" aria-label="Days per week" oninput="updateSimulator()" />
+              <span id="simDaysVal" aria-live="polite">3 days</span>
+            </div>
+          </div>
+
+          <div class="sim-control">
+            <label class="sim-label" for="simFood">
+              <span aria-hidden="true">🍽️</span> Switch diet to
+            </label>
+            <select id="simFood" class="form-select" aria-label="Select diet for simulation">
+              <option value="meat-heavy">Meat-Heavy (keep current)</option>
+              <option value="mixed">Mixed</option>
+              <option value="vegetarian" selected>Vegetarian</option>
+              <option value="vegan">Vegan</option>
+            </select>
+          </div>
+
+          <div class="sim-control">
+            <label class="sim-label" for="simAC">
+              <span aria-hidden="true">❄️</span> Reduce AC/Heating by (hours/day)
+            </label>
+            <div class="range-wrap">
+              <input type="range" id="simAC" class="form-range" min="0" max="8" value="2" aria-label="Reduce AC hours" oninput="updateSimulator()" />
+              <span id="simACVal" aria-live="polite">2 hrs</span>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-full" onclick="updateSimulator()" aria-label="Calculate simulation">
+            Calculate Savings
+          </button>
+        </div>
+      </div>
+
+      <div class="sim-results">
+        <div class="glass-card sim-result-card">
+          <h2 class="card-title">Projected Yearly Impact</h2>
+          <div class="sim-result-main" aria-live="polite" aria-label="Simulation results">
+            <div class="sim-savings" id="simSavings">—</div>
+            <div class="sim-savings-label">kg CO₂ saved per year</div>
+          </div>
+          <div class="sim-breakdown" id="simBreakdown" aria-label="Savings breakdown">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <div class="glass-card">
+          <h2 class="card-title">That's equivalent to…</h2>
+          <div class="sim-equivalents" id="simEquivalents" aria-live="polite">
+            <div class="equiv-item">
+              <span class="equiv-icon" aria-hidden="true">🌳</span>
+              <div>
+                <div class="equiv-val" id="eq-trees">—</div>
+                <div class="equiv-label">trees planted</div>
+              </div>
+            </div>
+            <div class="equiv-item">
+              <span class="equiv-icon" aria-hidden="true">✈️</span>
+              <div>
+                <div class="equiv-val" id="eq-flights">—</div>
+                <div class="equiv-label">short-haul flights avoided</div>
+              </div>
+            </div>
+            <div class="equiv-item">
+              <span class="equiv-icon" aria-hidden="true">🏠</span>
+              <div>
+                <div class="equiv-val" id="eq-home">—</div>
+                <div class="equiv-label">days of home power</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================== QUESTS PAGE ===================== -->
+  <main id="page-quests" class="page" role="main" aria-label="Carbon Quests">
+    <div class="page-header">
+      <div>
+        <h1>Carbon Quests</h1>
+        <p class="page-subtitle">Daily eco-missions personalized to your habits.</p>
+      </div>
+      <div class="quest-progress-mini" aria-label="Quest completion progress">
+        <span id="questCompletedCount">0</span>/<span id="questTotalCount">0</span> today
+      </div>
+    </div>
+
+    <div class="quests-grid">
+      <div class="quests-main">
+        <div class="glass-card">
+          <div class="quests-header-row">
+            <h2 class="card-title">Today's Missions</h2>
+            <button class="btn btn-sm btn-ghost" onclick="generateQuests()" aria-label="Refresh quests">↺ Refresh</button>
+          </div>
+          <div class="quests-list" id="questsList" role="list" aria-label="Daily quests">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <aside class="quests-sidebar" aria-label="Quest statistics and achievements">
+        <div class="glass-card">
+          <h2 class="card-title">🏆 Achievements</h2>
+          <div class="achievements-list" id="achievementsList" role="list">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+        <div class="glass-card">
+          <h2 class="card-title">Quest Stats</h2>
+          <div class="quest-stats">
+            <div class="qs-item">
+              <div class="qs-val" id="totalQuestsCompleted">0</div>
+              <div class="qs-label">Total Completed</div>
+            </div>
+            <div class="qs-item">
+              <div class="qs-val" id="streakCountQuest">0</div>
+              <div class="qs-label">Day Streak</div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- ===================== STATS PAGE ===================== -->
+  <main id="page-stats" class="page" role="main" aria-label="Statistics">
+    <div class="page-header">
+      <div>
+        <h1>Statistics</h1>
+        <p class="page-subtitle">Your carbon footprint over time.</p>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="glass-card chart-card">
+        <h2 class="card-title">Daily Emissions (Last 7 Days)</h2>
+        <div class="chart-wrap">
+          <canvas id="dailyChart" aria-label="Daily emissions chart" role="img"></canvas>
+        </div>
+      </div>
+      <div class="glass-card chart-card">
+        <h2 class="card-title">Emissions by Category</h2>
+        <div class="chart-wrap chart-wrap--doughnut">
+          <canvas id="categoryChart" aria-label="Emissions by category" role="img"></canvas>
+        </div>
+      </div>
+      <div class="glass-card chart-card chart-card--full">
+        <h2 class="card-title">Weekly Trend</h2>
+        <div class="chart-wrap">
+          <canvas id="weeklyChart" aria-label="Weekly emissions trend" role="img"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-summary glass-card">
+      <h2 class="card-title">Summary Insights</h2>
+      <div class="insights-grid" id="insightsGrid" aria-label="Statistics insights">
+        <div class="insight-item">
+          <div class="insight-icon" aria-hidden="true">📉</div>
+          <div class="insight-label">Best Day</div>
+          <div class="insight-val" id="bestDay">—</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon" aria-hidden="true">📈</div>
+          <div class="insight-label">Worst Day</div>
+          <div class="insight-val" id="worstDay">—</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon" aria-hidden="true">📊</div>
+          <div class="insight-label">Average/Day</div>
+          <div class="insight-val" id="avgDay">—</div>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon" aria-hidden="true">🎯</div>
+          <div class="insight-label">Total Saved vs Avg</div>
+          <div class="insight-val" id="totalSaved">—</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================== SETTINGS PAGE ===================== -->
+  <main id="page-settings" class="page" role="main" aria-label="Settings">
+    <div class="page-header">
+      <div>
+        <h1>Settings</h1>
+        <p class="page-subtitle">Customize your Carbon Twin AI experience.</p>
+      </div>
+    </div>
+
+    <div class="settings-grid">
+      <div class="glass-card">
+        <h2 class="card-title">Appearance</h2>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <div class="setting-label">Dark Mode</div>
+            <div class="setting-desc">Switch between dark and light theme</div>
+          </div>
+          <label class="toggle-switch" for="darkModeToggle" aria-label="Toggle dark mode">
+            <input type="checkbox" id="darkModeToggle" role="switch" aria-checked="true" onchange="toggleTheme()" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-info">
+            <div class="setting-label">Large Text Mode</div>
+            <div class="setting-desc">Increase text size for readability</div>
+          </div>
+          <label class="toggle-switch" for="largeTextToggle" aria-label="Toggle large text">
+            <input type="checkbox" id="largeTextToggle" role="switch" aria-checked="false" onchange="toggleLargeText()" />
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+      </div>
+
+      <div class="glass-card">
+        <h2 class="card-title">Data Management</h2>
+        <div class="setting-actions">
+          <div class="setting-action-item">
+            <div>
+              <div class="setting-label">Export Your Data</div>
+              <div class="setting-desc">Download all your activity logs as JSON</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="exportData()" aria-label="Export data to JSON">Export JSON</button>
+          </div>
+          <div class="setting-action-item">
+            <div>
+              <div class="setting-label">Reset All Data</div>
+              <div class="setting-desc">Permanently clear all logs, badges, and settings</div>
+            </div>
+            <button class="btn btn-danger btn-sm" onclick="resetData()" aria-label="Reset all data - this is permanent">Reset Data</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <h2 class="card-title">Accessibility</h2>
+        <div class="setting-row">
+          <div class="setting-info">
+            <div class="setting-label">Keyboard Navigation</div>
+            <div class="setting-desc">All features are fully accessible via keyboard</div>
+          </div>
+          <span class="badge badge-green">Active</span>
+        </div>
+        <div class="setting-row">
+          <div class="setting-info">
+            <div class="setting-label">Screen Reader Support</div>
+            <div class="setting-desc">ARIA labels and live regions are enabled</div>
+          </div>
+          <span class="badge badge-green">Active</span>
+        </div>
+        <div class="setting-row">
+          <div class="setting-info">
+            <div class="setting-label">Reduced Motion</div>
+            <div class="setting-desc">Respects your system's motion preference</div>
+          </div>
+          <span class="badge badge-green">Active</span>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        <h2 class="card-title">About</h2>
+        <div class="about-content">
+          <div class="about-logo" aria-hidden="true">🌿</div>
+          <div class="about-name">Carbon Twin AI</div>
+          <div class="about-version">Version 1.0.0 — Hackathon Edition</div>
+          <p class="about-desc">Built to help individuals understand, track, and reduce their carbon footprint through personalized insights and engaging visual storytelling.</p>
+          <div class="about-tags">
+            <span class="tag">🔒 Privacy First</span>
+            <span class="tag">📱 Offline Ready</span>
+            <span class="tag">♿ Accessible</span>
+            <span class="tag">🌱 Open Source</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span aria-hidden="true">🌿</span> Carbon Twin AI
+      </div>
+      <p class="footer-text">Built for the planet. All data stays on your device.</p>
+      <div class="footer-links">
+        <button class="footer-link" onclick="showPage('landing')">Home</button>
+        <button class="footer-link" onclick="showPage('dashboard')">Dashboard</button>
+        <button class="footer-link" onclick="showPage('settings')">Settings</button>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
